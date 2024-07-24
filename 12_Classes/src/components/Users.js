@@ -16,6 +16,11 @@ class Users extends Component {
   //componentWillUnmount -> Called right before component is unmounted -> equivalent to useEffect clean up function -> useEffect(() => {
   // return () => {...}
   // }, [])
+  componentDidUpdate() {
+    if (this.props.users.length === 0) {
+      throw new Error("No users provided");
+    }
+  }
 
   toggleUsersHandler() {
     //set state came from Component
