@@ -1,15 +1,20 @@
 import { useActionState } from "react";
 import { hasMaxLength, hasMinLength, isNotEmpty } from "../util/validation";
+import { use } from "react";
+import { OpinionsContext } from "../store/opinions-context";
+import Submit from "./Submit";
 
 export function NewOpinion() {
-  function submitOpinion(prevFormState, formData) {
-    const username = formData.get("userName");
+  const { addOpinion } = use(OpinionsContext);
+
+  async function submitOpinion(prevFormState, formData) {
+    const userName = formData.get("userName");
     const title = formData.get("title");
     const body = formData.get("body");
 
     let errors = [];
 
-    if (!isNotEmpty(username)) {
+    if (!isNotEmpty(userName)) {
       errors.push("Please provide a valid name.");
     }
 
@@ -25,12 +30,14 @@ export function NewOpinion() {
       return {
         errors,
         enteredValues: {
-          username,
+          userName,
           title,
           body,
         },
       };
     }
+
+    await addOpinion({ title, body, userName });
 
     return { errors: null };
   }
@@ -80,9 +87,7 @@ export function NewOpinion() {
             ))}
           </ul>
         )}
-        <p className="actions">
-          <button type="submit">Submit</button>
-        </p>
+        <Submit />
       </form>
     </div>
   );
