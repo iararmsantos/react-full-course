@@ -36,4 +36,4 @@ _Lazy Loading_: load code only when it's needed
 9. Firebase deploy is the last command, then you will have in the terminal the url to access your page
 10. To remove the filebase from the web: `firebase hosting:disable`
 
-### Configure Server
+`https://react-deployment-demo-9b0a1.web.app/`
